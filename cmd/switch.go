@@ -10,7 +10,7 @@ import (
 
 var switchCmd = &cobra.Command{
 	Use:     "switch <name>",
-	Aliases: []string{"cd", "goto", "go"},
+	Aliases: []string{"s", "cd", "goto", "go"},
 	Short:   "Navigate to a worktree",
 	Long: `Navigate to a worktree by name. This command will output the path
 that can be used with shell integration to change directories.`,

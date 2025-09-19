@@ -22,4 +22,5 @@ func init() {
 	rootCmd.AddCommand(switchCmd)
 	rootCmd.AddCommand(cleanCmd)
 	rootCmd.AddCommand(originalCmd)
+	rootCmd.AddCommand(installCmd)
 }

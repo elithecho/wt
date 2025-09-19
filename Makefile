@@ -1,7 +1,7 @@
 .PHONY: build clean install uninstall test help
 
 # Binary name
-BINARY_NAME=wt
+BINARY_NAME=worktree
 BUILD_DIR=build
 INSTALL_PATH=/usr/local/bin
 
@@ -22,7 +22,8 @@ clean:
 install: build
 	@echo "Installing $(BINARY_NAME) to $(INSTALL_PATH)..."
 	@sudo cp $(BUILD_DIR)/$(BINARY_NAME) $(INSTALL_PATH)/
-	@echo "✅ Installed! You can now use 'wt' from anywhere"
+	@echo "✅ Installed! You can now use 'worktree' from anywhere"
+	@echo "Run 'worktree install' to set up the 'wt' shell function"
 
 # Uninstall
 uninstall:

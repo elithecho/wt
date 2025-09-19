@@ -16,8 +16,7 @@ Or build from source:
 ```bash
 git clone https://github.com/yourusername/worktrees.git
 cd worktrees
-go build -o wt main.go
-sudo mv wt /usr/local/bin/
+make install
 ```
 
 ## Commands
