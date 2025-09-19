@@ -76,7 +76,7 @@ wt() {
             # Navigate to original worktree
             local path=$(worktree og 2>/dev/null)
             if [ $? -eq 0 ] && [ -n "$path" ]; then
-                cd "$path"
+                builtin cd "$path" 2>/dev/null || cd "$path"
             else
                 worktree og
             fi
@@ -88,7 +88,7 @@ wt() {
             else
                 local path=$(worktree switch "$2" 2>/dev/null)
                 if [ $? -eq 0 ] && [ -n "$path" ]; then
-                    cd "$path"
+                    builtin cd "$path" 2>/dev/null || cd "$path"
                 else
                     worktree switch "$2"
                 fi
@@ -112,7 +112,7 @@ function wt
             # Navigate to original worktree
             set path (worktree og 2>/dev/null)
             if test $status -eq 0 -a -n "$path"
-                cd $path
+                builtin cd $path 2>/dev/null; or cd $path
             else
                 worktree og
             end
@@ -123,7 +123,7 @@ function wt
             else
                 set path (worktree switch $argv[2] 2>/dev/null)
                 if test $status -eq 0 -a -n "$path"
-                    cd $path
+                    builtin cd $path 2>/dev/null; or cd $path
                 else
                     worktree switch $argv[2]
                 end
