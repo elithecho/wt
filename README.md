@@ -8,16 +8,27 @@ Git worktrees are powerful but the commands aren't very intuitive. This tool pro
 
 ## Installation
 
+### Quick install (prebuilt binary):
 ```bash
-go install github.com/yourusername/worktrees@latest
+curl -L https://github.com/elithecho/wt/releases/download/v0.1/worktree -o worktree
+chmod +x worktree
+sudo mv worktree /usr/local/bin/
 ```
 
-Or build from source:
+### Or build from source:
 ```bash
-git clone https://github.com/yourusername/worktrees.git
-cd worktrees
+git clone https://github.com/elithecho/wt.git
+cd wt
 make install
 ```
+
+### Set up shell integration (required for directory changing):
+```bash
+worktree install
+source ~/.zshrc  # or ~/.bashrc for bash
+```
+
+This installs the `wt` shell function that enables automatic directory changing.
 
 ## Commands
 
@@ -36,11 +47,12 @@ List all worktrees with their paths, branches, and status.
 wt list
 ```
 
-### `wt switch <name>` (aliases: `cd`, `goto`, `go`)
-Navigate to a worktree by name. Use with shell integration for automatic directory changing.
+### `wt switch <name>` (aliases: `s`, `cd`, `goto`, `go`)
+Navigate to a worktree by name. Automatically changes directory with shell integration.
 
 ```bash
 wt switch feature-auth
+wt s feature-auth        # Short alias
 ```
 
 ### `wt remove <path>` (aliases: `rm`, `delete`, `del`)
@@ -67,55 +79,7 @@ wt clean
 
 ## Shell Integration
 
-To enable automatic directory changing, add this to your shell configuration:
-
-### Bash/Zsh
-```bash
-wt_cd() {
-    local path=$(wt switch "$1" 2>/dev/null)
-    if [ $? -eq 0 ] && [ -n "$path" ]; then
-        cd "$path"
-    else
-        wt switch "$1"
-    fi
-}
-
-wt_og() {
-    local path=$(wt og 2>/dev/null)
-    if [ $? -eq 0 ] && [ -n "$path" ]; then
-        cd "$path"
-    else
-        wt og
-    fi
-}
-
-alias wtcd=wt_cd
-alias wtog=wt_og
-```
-
-### Fish
-```fish
-function wt_cd
-    set path (wt switch $argv[1] 2>/dev/null)
-    if test $status -eq 0 -a -n "$path"
-        cd $path
-    else
-        wt switch $argv[1]
-    end
-end
-
-function wt_og
-    set path (wt og 2>/dev/null)
-    if test $status -eq 0 -a -n "$path"
-        cd $path
-    else
-        wt og
-    end
-end
-
-alias wtcd=wt_cd
-alias wtog=wt_og
-```
+After installation, run `worktree install` to automatically set up shell integration for your shell (bash/zsh/fish). This creates a `wt` function that intercepts navigation commands and handles directory changing automatically.
 
 ## Usage Examples
 
@@ -126,11 +90,11 @@ wt add ../feature-login
 # List all worktrees
 wt list
 
-# Switch to the feature worktree
-wtcd feature-login
+# Switch to the feature worktree (automatically changes directory)
+wt s feature-login
 
 # Go back to main
-wtog
+wt og
 
 # Remove the feature worktree when done
 wt rm feature-login
