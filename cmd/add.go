@@ -9,8 +9,9 @@ import (
 )
 
 var addCmd = &cobra.Command{
-	Use:   "add <path> [branch]",
-	Short: "Create a new worktree",
+	Use:     "add <path> [branch]",
+	Aliases: []string{"create", "new"},
+	Short:   "Create a new worktree",
 	Long: `Create a new git worktree at the specified path.
 If no branch is specified, a new branch will be created based on the folder name.`,
 	Args: cobra.MinimumNArgs(1),

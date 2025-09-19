@@ -33,17 +33,7 @@ func (wm *WorktreeManager) List() ([]Worktree, error) {
 }
 
 func (wm *WorktreeManager) Add(path, branch string) error {
-	args := []string{"worktree", "add"}
-	
-	if branch != "" {
-		args = append(args, "-b", branch)
-	}
-	
-	args = append(args, path)
-	
-	if branch != "" && !strings.HasPrefix(branch, "-b") {
-		args = append(args, branch)
-	}
+	args := []string{"worktree", "add", "-b", branch, path}
 
 	cmd := exec.Command("git", args...)
 	cmd.Stdout = os.Stdout
